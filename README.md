@@ -134,6 +134,32 @@ Ensure the script is executable then click to run:
 
 Note: You may need to restart your computer and clear your browser cache(s) for the new hosts file rules to be observed by your OS.
 
+## Menu Walkthrough
+
+
+1) List Management (enable or disable repositories)
+2) Custom List Management (add or remove whitelist/blacklist rules)
+
+3) [0.0.0.0] - Change redirect IP address
+
+4) Change Build/Install Mode
+
+5) Build and Install Host Flash™ list.
+
+6) Enable Host Flash™ list.
+7) Disable Host Flash™ list.
+8) Update and Enable hosts file with new custom rules
+
+9) Flush DNS rules
+
+10) Restore original hosts file.
+
+11) Reset Host Flash™ configs and files (select in next menu)
+
+R) Restart Host Flash™
+
+0) Exit
+
 # Host Flash™ is being rewritten (we are on version 3.1.8 now). Information below this point may be slightly out of date.
 
 # Advanced Usage

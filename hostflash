@@ -1719,6 +1719,178 @@ function __menu_remote_list_management() {
 	done
 }
 
+function __menu_custom_dns_list_management() {
+
+	printf "${bold}CUSTOM DNS LIST MANAGEMENT${normal}"
+	printf "\n\nUpdate list status\n\n"
+
+	# Display custom list options
+	unset menu
+	menu[1]="Add a host to custom whitelist"
+	menu[2]="Add a host to custom wild whitelist"
+	menu[3]="Add a host to custom blacklist\n"
+	menu[4]="Remove a host from custom whitelist"
+	menu[5]="Remove a host from custom wild whitelist"
+	menu[6]="Remove a host from custom blacklist\n"
+	menu[7]="Display custom whitelist"
+	menu[8]="Display custom wild whitelist"
+	menu[9]="Display custom blacklist\n"
+	menu[10]="Manage custom DNS lists"
+
+	n=1
+	for i in "${menu[@]}" ; do
+		printf "$n) ${i}\n"
+		let n=n+1
+	done
+	
+	printf "\n0) Return to Main Menu\n"
+	
+	printf "\nEnter option number then press Enter.\n"
+	
+	read a
+
+	case $a in
+
+		0)
+			__menu_main
+		;;
+
+		1) # Add to custom whitelist
+
+			printf "Custom whitelist is located at ${file[confwl]}\n\n"
+			printf "Type in a host to add then press Enter. Press 0 to exit:\n\n"
+			read a
+			
+			case $a in
+				0)
+					__repaint '__menu_custom_list_management' # Effectively 'Return here'
+				;;
+				
+				*)
+					__conf_update 'add' "$a" "${file[confwl]}"
+					__repaint '__menu_custom_list_management' # Effectively 'Return here'
+				;;
+			esac
+
+		;;
+
+		2) # Add to custom wild whitelist
+
+			printf "Custom wild whitelist is located at ${file[confwlw]}\n\n"
+			printf "Type in a host to add then press Enter. Press 0 to exit:\n\n"
+			read a
+
+			case $a in
+				0)
+					__repaint '__menu_custom_list_management' # Effectively 'Return here'
+				;;
+				
+				*)
+					__conf_update 'add' "$a" "${file[confwlw]}" # Add host to wild whitelist
+					__repaint '__menu_custom_list_management' # Effectively 'Return here'
+				;;
+			esac
+
+		;;
+
+		3) # Add to custom blacklist
+
+			printf "Custom blacklist is located at ${file[confbl]}\n\n"
+			printf "Type in a host to add then press Enter. Press 0 to exit:\n\n"
+			read a
+
+			case $a in
+				0)
+					__repaint '__menu_custom_list_management' # Effectively 'Return here'
+				;;
+				
+				*)
+					__conf_update 'add' "$a" "${file[confbl]}"
+					__repaint '__menu_custom_list_management' # Effectively 'Return here'
+				;;
+			esac
+
+		;;
+
+		4) # Remove from custom whitelist
+
+			__remove_custom_list_entry_menu ${file[confwl]} "whitelist"
+
+		;;
+
+		5) # Remove from custom wild whitelist
+
+			__remove_custom_list_entry_menu ${file[confwlw]} "wild whitelist"
+
+		;;
+
+		6) # Remove from custom blacklist
+
+			__remove_custom_list_entry_menu ${file[confbl]} "blacklist"
+
+		;;
+
+		7) # Display custom whitelist
+
+			printf "Custom whitelist is located at ${file[confwl]}\n\n"
+			cat "${file[confwl]}"
+			printf "\n\nPress Enter to return to previous menu:"
+			read a
+
+			case $a in
+				*)
+					__repaint '__menu_custom_list_management' # Effectively 'Return here'
+				;;
+			esac
+
+		;;
+
+		8) # Display custom wild whitelist
+
+			printf "Custom wild whitelist is located at ${file[confwlw]}\n\n"
+			cat "${file[confwlw]}"
+			printf "\n\nPress Enter to return to previous menu:"
+			read a
+
+			case $a in
+				*)
+					__repaint '__menu_custom_list_management' # Effectively 'Return here'
+				;;
+			esac
+
+		;;
+
+		9) # Display custom blacklist
+
+			printf "Custom blacklist is located at ${file[confbl]}\n\n"
+			cat "${file[confbl]}"
+			printf "\n\nPress Enter to return to previous menu:"
+			read a
+
+			case $a in
+				*)
+					__repaint '__menu_custom_list_management' # Effectively 'Return here'
+				;;
+			esac
+
+		;;
+
+		10) # Custom DNS Lists Menu
+
+			__repaint '__menu_custom_dns_list_management'
+
+		;;
+
+		*)
+
+			__repaint '__menu_custom_dns_list_management'
+
+
+		;;
+
+	esac
+}
+
 function __menu_custom_list_management() {
 	# Show and manage host lists
 	
@@ -1739,7 +1911,8 @@ function __menu_custom_list_management() {
 		menu[6]="Remove a host from custom blacklist\n"
 		menu[7]="Display custom whitelist"
 		menu[8]="Display custom wild whitelist"
-		menu[9]="Display custom blacklist"
+		menu[9]="Display custom blacklist\n"
+		menu[10]="Manage custom DNS lists"
 
 		n=1
 		for i in "${menu[@]}" ; do
@@ -1876,6 +2049,12 @@ function __menu_custom_list_management() {
 						__repaint '__menu_custom_list_management' # Effectively 'Return here'
 					;;
 				esac
+
+			;;
+
+			10) # Custom DNS Lists Menu
+
+				__repaint '__menu_custom_dns_list_management'
 
 			;;
 
